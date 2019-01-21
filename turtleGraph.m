@@ -49,4 +49,5 @@ elseif any(coord(:)=='A')
 end
 
 turtleCommands = coord;
-disp(turtleCommands);
+%disp(coords);
+

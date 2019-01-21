@@ -1,0 +1,16 @@
+function turtlePlot(turtleCommands)
+
+lineLen = zeros(1, length(turtleCommands)/2);
+lineAng = turtleCommands(2:2:end);
+
+d=[[1;0] zeros(2,length(lineAng)-1)];
+x=[zeros(2,length(lineAng))];
+
+for i <= length(turtleCommands)
+    lineLen(i) = turtleCommands(i); %Length
+    %lineAng(i) = turtleCommands(i+1); %Angle
+    
+    d(:,i+1)=dot([cos(lineAng(i)), sin(lineAng(i)); -sin(lineAng(i)), cos(lineAng(i))],d(:,i));
+    x(:,i+1)=x(:,i)+lineLen(i)*d(:,i+1);
+    i=i+2;
+end

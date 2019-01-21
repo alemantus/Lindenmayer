@@ -23,7 +23,7 @@ LindenmayerString = ourStr;
 %LindenmayerString(LindenmayerString=="R" | LindenmayerString=="L") = [];
 %LindenmayerString(LindenmayerString=="S") = [];
 % 
-disp(log(numel(LindenmayerString)/2+1/2)/(log(3)));
+
 
 
 %disp(numel(LindenmayerString));
