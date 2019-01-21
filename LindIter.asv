@@ -1,0 +1,8 @@
+function LindenmayerString = LindIter(System, N)
+
+if strcmp(System, "Koch")
+    for
+        
+    end
+    
+elseif strcmp(
