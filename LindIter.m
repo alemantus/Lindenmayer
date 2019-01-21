@@ -1,14 +1,14 @@
 function LindenmayerString = LindIter(System, N)
 
 if strcmp(System, "Koch")
-    ourStr = "S";
+    ourStr = 'S';
     for i = 1:N
-        ourStr = strrep(ourStr, "S", "SLR");
+        ourStr = strrep(ourStr, 'S', 'SLSRSLS');
     end    
     
 elseif strcmp(System, "Sierpinski")
     
-    ourStr = "A";
+    ourStr = 'A';
     
     for k = 1:N
         old = {'A','B'};
@@ -19,7 +19,11 @@ elseif strcmp(System, "Sierpinski")
 end
 
 
-
 LindenmayerString = ourStr;
+%LindenmayerString(LindenmayerString=="R" | LindenmayerString=="L") = [];
+%LindenmayerString(LindenmayerString=="S") = [];
+% 
+disp(log(numel(LindenmayerString)/2+1/2)/(log(3)));
 
-disp(LindenmayerString);
+
+%disp(numel(LindenmayerString));
