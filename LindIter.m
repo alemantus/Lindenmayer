@@ -11,6 +11,7 @@ elseif strcmp(System, "Sierpinski")
     ourStr = 'A';
     
     for k = 1:N
+        %different method ensures no redundant letter replacement
         old = {'A','B'};
         new = {'BRARB','ALBLA'};
         ourStr = replace(ourStr,old,new);  
@@ -18,12 +19,4 @@ elseif strcmp(System, "Sierpinski")
 
 end
 
-
 LindenmayerString = ourStr;
-%LindenmayerString(LindenmayerString=="R" | LindenmayerString=="L") = [];
-%LindenmayerString(LindenmayerString=="S") = [];
-% 
-
-
-
-%disp(numel(LindenmayerString));
