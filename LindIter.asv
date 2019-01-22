@@ -11,13 +11,12 @@ elseif strcmp(System, "Sierpinski")
     ourStr = 'A';
     
     for k = 1:N
+        %different method ensures no redundant letter replacement
         old = {'A','B'};
         new = {'BRARB','ALBLA'};
         ourStr = replace(ourStr,old,new);  
     end
-
+elseif strcmp(Syst
 end
 
-
 LindenmayerString = ourStr;
-disp(LindenmayerString);

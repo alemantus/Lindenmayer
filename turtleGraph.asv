@@ -1,10 +1,10 @@
-function turtleCommands = turtleGraph(LindenmayerString)
+function [turtleCommands,type] = turtleGraph(LindenmayerString)
 
 coord = double(cell2mat(split(LindenmayerString,""))).';
 
 
 %Koch
-if any(coord(:)=='S')
+if any(coord=='S')
     
     %Number of iterations specified in LindIter.m
     iteration=log((numel(coord)/2)+1/2)/(2*log(2));
@@ -12,22 +12,13 @@ if any(coord(:)=='S')
     %length determination    
     coord(coord=='S')=(1/3)^iteration;
 
-    %the angle depends on the first letter 
-    coord(2)=1/3*pi;
+    %the angle depends on the first letter
     
-    i=4;
-    while i<length(coord)
-        if coord(i)=='R'
-            coord(i)=-2/3*pi;
-        elseif coord(i)=='L'
-            coord(i)=1/3*pi;
-        end
-        %since only every second letter is an angle letter
-        i=i+2;
-    end
+    coord(coord=='R') =-2/3*pi;
+    coord(coord=='L') =1/3*pi;
 
 %Sierpinski
-elseif any(coord(:)=='A')
+elseif any(coord=='A')
     
     %Number of iterations specified in LindIter.m
     iteration = log(numel(coord)/2+1/2)/log(3);
@@ -36,25 +27,24 @@ elseif any(coord(:)=='A')
     coord(coord=='A'|coord=='B')=(1/2)^iteration;
     
     %the angle depends on the first letter
-    if coord(2)=='L'
-        coord(2)=1/3*pi;
-    elseif coord(2)=='R'
-        coord(2)=(-1/3*pi);
-    end
+    coord(coord=='R') =-1/3*pi;
+    coord(coord=='L') =1/3*pi;
     
-    i=4;
-    while i<length(coord)
-        if coord(i)=='R'
-            coord(i)=-1/3*pi;
-        elseif coord(i)=='L'
-            coord(i)=1/3*pi;
-        end
-        %since only every second letter is an angle letter
-        i=i+2;
-    end
+    type = 1;
     
+elseif any(coord=='[')
+    
+    %iteration = log(numel(coord)/2+1/2)/log(3);
+    
+    coord(coord=='1')=(1/2);
+    coord(coord=='0')=(1/4);
+    
+    coord(coord==']') =-1/4*pi;
+    coord(coord=='[') =1/4*pi;  
+    type = 2;
     
 end
 
 turtleCommands = coord;
+
 
