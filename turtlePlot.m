@@ -1,6 +1,6 @@
 function turtlePlot(turtleCommands)
 
-type=2;
+type=3;
 switch type
     case 1
         %since every len entry is the same
@@ -30,7 +30,7 @@ switch type
         stackX=[];
         
         d=[[0;1] zeros(2,length(turtleCommands/2))];
-        x=[[0;0], zeros(2,length(turtleCommands/2))];
+        x=[[0;0] zeros(2,length(turtleCommands/2))];
         %disp(turtleCommands);
         
         for i = 1:length(turtleCommands)
@@ -53,6 +53,24 @@ switch type
                 x(:,i+2)=x(:,i+1)+turtleCommands(i)*d(:,i+1);
             end
             
+        end
+   case 3
+        %since every len entry is the same
+        lineLen = turtleCommands(1);
+        %extracts every index equals to pi/2
+        lineAng = turtleCommands(turtleCommands==pi/2 & turtleCommands==-pi/2);
+
+        disp(lineAng);
+        %disp(turtleCommands);
+        %The first values needs to be initialized manually
+        d=[[1;0] zeros(2,length(lineAng)-1)];
+        x=[[0;0], [lineLen;0], zeros(2,length(lineAng)-2)];
+
+
+        for i = 1:length(turtleCommands)/2
+            d(:,i+1)=[cos(lineAng(i)), -sin(lineAng(i)); sin(lineAng(i)), cos(lineAng(i))]*d(:,i);
+
+            x(:,i+2)=x(:,i+1)+lineLen*d(:,i+1);    
         end
         
         disp(x);    
