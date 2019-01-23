@@ -39,10 +39,10 @@ elseif any(coord=='[')
     coord(coord=='1')=(1/2);
     coord(coord=='0')=(1/4);
     
-    coord(coord==']') =-0.7854;
-    coord(coord=='[') =0.7854;  
+    coord(coord==']') =-1/4*pi;
+    coord(coord=='[') =1/4*pi;  
     type = 2;
-    disp(coord);
+%     disp(coord);
 end
 
 turtleCommands = coord;

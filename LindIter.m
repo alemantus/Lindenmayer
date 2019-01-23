@@ -1,5 +1,7 @@
 function LindenmayerString = LindIter(System, N)
 
+
+
 if strcmp(System, "Koch")
     ourStr = 'S';
     for i = 1:N
@@ -24,6 +26,7 @@ elseif strcmp(System, "Fractal tree")
         new = {'11','1[0]0'};
         ourStr = replace(ourStr,old,new);  
     end
+    
 end
 %disp(ourStr);
 LindenmayerString = ourStr;
