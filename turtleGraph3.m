@@ -66,7 +66,6 @@ elseif any(coord(1,:)=='F')
     end
     
 end
-
 turtleCommands = coord;
 
 
