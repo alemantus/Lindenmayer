@@ -29,5 +29,5 @@ for i = 1:length(turtleCommands)
 
 end
 plotData = x;
-line(x(1,:), x(2,:));
-%plot(x(1,:), x(2,:));
+%line(x(1,:), x(2,:));
+plot(x(1,:), x(2,:));
