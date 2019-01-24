@@ -1,4 +1,4 @@
-function turtlePlot2(turtleCommands)
+function turtlePlot(turtleCommands)
 
 stackD=[];
 stackX=[];
