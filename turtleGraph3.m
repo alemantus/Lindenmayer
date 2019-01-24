@@ -47,7 +47,6 @@ elseif any(coord(1,:)=='[')
         elseif coord(1,i)==']'%Pop
             coord(:,i)=[1/4*pi, 4];
         end
-
     end
 elseif any(coord(1,:)=='F')
     for i=1:length(LindenmayerString)
@@ -56,7 +55,6 @@ elseif any(coord(1,:)=='F')
             coord(:,i)=[1/2, 1];
         elseif coord(1,i)=='R'%the angle depends on the first letter
             coord(:,i)=[-1/2*pi, 2];
-        
         elseif coord(1,i)=='L' 
             coord(:,i)=[1/2*pi, 2];
         end
