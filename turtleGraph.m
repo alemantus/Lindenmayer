@@ -1,4 +1,4 @@
-function turtleCommands = turtleGraph3(LindenmayerString)
+function turtleCommands = turtleGraph(LindenmayerString)
 
 coord = [double(cell2mat(split(LindenmayerString,""))).'; zeros(1, length(LindenmayerString))];
 %Koch
