@@ -1,5 +1,7 @@
-function turtlePlot2(turtleCommands)
+function plotData=turtlePlot2(turtleCommands)
 
+stackD=[];
+stackX=[];
 d=[[1;0] zeros(2,length(turtleCommands/2))];
 x=[[0;0] zeros(2,length(turtleCommands/2))];
 
@@ -26,5 +28,6 @@ for i = 1:length(turtleCommands)
     
 
 end
-
+plotData = x;
 line(x(1,:), x(2,:));
+%plot(x(1,:), x(2,:));

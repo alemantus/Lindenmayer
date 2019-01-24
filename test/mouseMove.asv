@@ -1,8 +1,0 @@
-
-function mouseMove (object, eventdata)
-C = get (gca, 'CurrentPoint');
-v=[1 0];
-E=[C(1,1) C(1,2)];
-CosTheta = dot(E,v)/(norm(E)*norm(v));
-disp(acos(CosTheta);
-title(gca, ['(X,Y) = (', num2str(C(1,1)), ', ',num2str(C(1,2)), ')']);

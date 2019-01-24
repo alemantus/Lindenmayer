@@ -51,7 +51,10 @@ function untitled_OpeningFcn(hObject, eventdata, handles, varargin)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 % varargin   command line arguments to untitled (see VARARGIN)
+xlim([-30 30]);
+ylim([-10 40]);
 fracTree()
+
 % Choose default command line output for untitled
 handles.output = hObject;
 
@@ -85,3 +88,6 @@ function axes1_ButtonDownFcn(hObject, eventdata, handles)
 % hObject    handle to axes1 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+xlim([-30 30]);
+ylim([-10 40]);
+fracTree()

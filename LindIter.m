@@ -1,7 +1,6 @@
 function LindenmayerString = LindIter(System, N)
 
 
-
 if strcmp(System, "Koch")
     ourStr = 'S';
     for i = 1:N
