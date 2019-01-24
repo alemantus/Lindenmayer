@@ -28,16 +28,14 @@ function gui_OpeningFcn(hObject, eventdata, handles, varargin)
 % handles    structure with handles and user data (see GUIDATA)
 % varargin   command line arguments to gui (see VARARGIN)
 % Create the data to plot.
+
+%Initialize data in order to display plot upon start
 handles.iterations=5;
 handles.safety=1;
-handles.Sierpinski="Sierpinski";
-handles.Koch="Koch";
-handles.Tree="Fractal tree";
 set(handles.edit2,'String',handles.iterations);
-% Set the current data value.
-handles.current_data = handles.Sierpinski;
-%line(handles.current_data(1,:),handles.current_data(2,:));
-turtlePlot2(turtleGraph3(LindIter(handles.current_data,handles.iterations)));
+handles.current_data = "Sierpinski";
+turtlePlot(turtleGraph(LindIter(handles.current_data,handles.iterations)));
+
 % Choose default command line output for gui
 handles.output = hObject;
 
@@ -64,19 +62,25 @@ function pushbutton1_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton1 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+cla
 switch handles.current_data
     case 'Sierpinski'        
-        turtlePlot2(turtleGraph3(LindIter(string(handles.current_data),handles.iterations)));
+        turtlePlot(turtleGraph(LindIter(string(handles.current_data),handles.iterations)));
     case 'Koch'
         if handles.safety == 1 && handles.iterations > 5
             handles.iterations = 5;
         end
-        turtlePlot2(turtleGraph3(LindIter(string(handles.current_data),handles.iterations)));
+        turtlePlot(turtleGraph(LindIter(string(handles.current_data),handles.iterations)));
     case 'Fractal tree'
         if handles.safety == 1 && handles.iterations > 8
             handles.iterations = 8;
         end
-        turtlePlot2(turtleGraph3(LindIter(string(handles.current_data),handles.iterations)));
+        turtlePlot(turtleGraph(LindIter(string(handles.current_data),handles.iterations)));
+    case 'Dragon curve'
+        if handles.safety == 1 && handles.iterations > 15
+            handles.iterations = 15;
+        end
+        turtlePlot(turtleGraph(LindIter(string(handles.current_data),handles.iterations)));
 end
 
 
@@ -96,6 +100,8 @@ switch handles.popStr{handles.popVal}
        handles.current_data = "Koch";
     case 'Fractal tree' % User selects sinc.
        handles.current_data = "Fractal tree";
+    case 'Dragon curve'
+        handles.current_data = "Dragon curve";
 end
 % Save the handles structure.
 guidata(hObject,handles)
@@ -146,6 +152,14 @@ if handles.safety == 1
         case 'Fractal tree'
             if Value > 9
                 set(hObject, 'Value', 8);
+                handles.iterations=get(hObject,'Value');
+            else
+                set(hObject, 'Value', Value);
+                handles.iterations=get(hObject,'Value');
+            end
+        case 'Dragon curve'
+            if Value > 15
+                set(hObject, 'Value', 15);
                 handles.iterations=get(hObject,'Value');
             else
                 set(hObject, 'Value', Value);
@@ -219,3 +233,35 @@ function radiobutton1_Callback(hObject, eventdata, handles)
 % Hint: get(hObject,'Value') returns toggle state of radiobutton1
 handles.safety=get(hObject,'Value');
 guidata(hObject,handles);
+
+
+
+function edit3_Callback(hObject, eventdata, handles)
+% hObject    handle to edit3 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit3 as text
+%        str2double(get(hObject,'String')) returns contents of edit3 as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function edit3_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit3 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on button press in pushbutton4.
+function pushbutton4_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton4 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+saveStr=strcat(handles.current_data,".png");
+saveas(gcf,saveStr);
