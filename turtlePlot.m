@@ -1,7 +1,5 @@
 function turtlePlot(turtleCommands)
 
-stackD=[];
-stackX=[];
 d=[[1;0] zeros(2,length(turtleCommands/2))];
 x=[[0;0] zeros(2,length(turtleCommands/2))];
 stackD=[];
