@@ -59,8 +59,6 @@ elseif any(coord(1,:)=='F')
         elseif coord(1,i)=='L'
             coord(:,i)=[1/2*pi, 2];
         end
-
     end
-
 end
 turtleCommands = coord;
