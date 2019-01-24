@@ -1,6 +1,12 @@
+%https://se.mathworks.com/help/matlab/creating_guis/about-the-simple-guide-gui-example.html
+
+%known bugs
+%-Save function saves the whole gui
+%-disabling and enabling safety outside safety zones does not change slider
+%position eventhough the figure is generated with safety parameters.
+
+
 function varargout = gui(varargin)
-
-
 gui_Singleton = 1;
 gui_State = struct('gui_Name',       mfilename, ...
                    'gui_Singleton',  gui_Singleton, ...
@@ -17,18 +23,9 @@ if nargout
 else
     gui_mainfcn(gui_State, varargin{:});
 end
-% End initialization code - DO NOT EDIT
-
 
 % --- Executes just before gui is made visible.
 function gui_OpeningFcn(hObject, eventdata, handles, varargin)
-% This function has no output args, see OutputFcn.
-% hObject    handle to figure
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-% varargin   command line arguments to gui (see VARARGIN)
-% Create the data to plot.
-
 %Initialize data in order to display plot upon start
 handles.iterations=5;
 handles.safety=1;
@@ -48,48 +45,23 @@ guidata(hObject, handles);
 
 % --- Outputs from this function are returned to the command line.
 function varargout = gui_OutputFcn(hObject, eventdata, handles) 
-% varargout  cell array for returning output args (see VARARGOUT);
-% hObject    handle to figure
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
 % Get default command line output from handles structure
 varargout{1} = handles.output;
 
 
 % --- Executes on button press in pushbutton1.
 function pushbutton1_Callback(hObject, eventdata, handles)
-% hObject    handle to pushbutton1 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-cla
-switch handles.current_data
-    case 'Sierpinski'        
-        turtlePlot(turtleGraph(LindIter(string(handles.current_data),handles.iterations)));
-    case 'Koch'
-        if handles.safety == 1 && handles.iterations > 5
-            handles.iterations = 5;
-        end
-        turtlePlot(turtleGraph(LindIter(string(handles.current_data),handles.iterations)));
-    case 'Fractal tree'
-        if handles.safety == 1 && handles.iterations > 8
-            handles.iterations = 8;
-        end
-        turtlePlot(turtleGraph(LindIter(string(handles.current_data),handles.iterations)));
-    case 'Dragon curve'
-        if handles.safety == 1 && handles.iterations > 15
-            handles.iterations = 15;
-        end
-        turtlePlot(turtleGraph(LindIter(string(handles.current_data),handles.iterations)));
-end
+%clear display
+cla;
+
+%generates plot
+turtlePlot(turtleGraph(LindIter(string(handles.current_data),handles.iterations)));
+
 
 
 % --- Executes on selection change in popupmenu1.
 function popupmenu1_Callback(hObject, eventdata, handles)
-% hObject    handle to popupmenu1 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-% Determine the selected data set.
+
 handles.popStr = get(hObject, 'String');
 handles.popVal = get(hObject,'Value');
 % Set current data to the selected data set.
@@ -106,18 +78,9 @@ end
 % Save the handles structure.
 guidata(hObject,handles)
 
-% Hints: contents = cellstr(get(hObject,'String')) returns popupmenu1 contents as cell array
-%        contents{get(hObject,'Value')} returns selected item from popupmenu1
-
 
 % --- Executes during object creation, after setting all properties.
 function popupmenu1_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to popupmenu1 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: popupmenu controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
@@ -125,22 +88,18 @@ end
 
 % --- Executes on slider movement.
 function slider1_Callback(hObject, eventdata, handles)
-% hObject    handle to slider1 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'Value') returns position of slider
-%        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
-
-
-
-%Ensure that slider value is an integer
+%Safety feature
 Value = round(get(hObject, 'Value'));
 if handles.safety == 1
     switch handles.current_data
         case 'Sierpinski'
-            set(hObject, 'Value', Value);
-            handles.iterations=get(hObject,'Value');
+            if Value > 10
+                set(hObject, 'Value', 10);
+                handles.iterations=get(hObject,'Value');
+            else
+                set(hObject, 'Value', Value);
+                handles.iterations=get(hObject,'Value');
+            end
         case 'Koch'
             if Value > 6
                 set(hObject, 'Value', 5);
@@ -176,26 +135,13 @@ guidata(hObject,handles);
 
 % --- Executes during object creation, after setting all properties.
 function slider1_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to slider1 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: slider controls usually have a light gray background.
 if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor',[.9 .9 .9]);
 end
 
 
-
-
 % --- Executes during object creation, after setting all properties.
 function edit1_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to edit1 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
@@ -203,22 +149,10 @@ end
 
 
 function edit2_Callback(hObject, eventdata, handles)
-% hObject    handle to edit2 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of edit2 as text
-%        str2double(get(hObject,'String')) returns contents of edit2 as a double
-
 
 % --- Executes during object creation, after setting all properties.
 function edit2_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to edit2 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
 
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
@@ -226,33 +160,14 @@ end
 
 % --- Executes on button press in radiobutton1.
 function radiobutton1_Callback(hObject, eventdata, handles)
-% hObject    handle to radiobutton1 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hint: get(hObject,'Value') returns toggle state of radiobutton1
 handles.safety=get(hObject,'Value');
 guidata(hObject,handles);
 
-
-
 function edit3_Callback(hObject, eventdata, handles)
-% hObject    handle to edit3 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of edit3 as text
-%        str2double(get(hObject,'String')) returns contents of edit3 as a double
 
 
 % --- Executes during object creation, after setting all properties.
 function edit3_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to edit3 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
@@ -260,8 +175,21 @@ end
 
 % --- Executes on button press in pushbutton4.
 function pushbutton4_Callback(hObject, eventdata, handles)
-% hObject    handle to pushbutton4 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-saveStr=strcat(handles.current_data,".png");
+saveStr=strcat("Figures\\",handles.current_data,".png");
+
+%This saves the whole gui as a screenshot since the gui itself is a figure.
+%To save the plot alone one should do it using the mainScript.m 
+%As a solution we tried to extract as a subplot and copy it to an invisible
+%figure which we would the save..
 saveas(gcf,saveStr);
+
+dispStr = strcat("Saved at: ",saveStr);
+set(handles.edit5,'String',dispStr);
+
+
+function edit5_Callback(hObject, eventdata, handles)
+
+function edit5_CreateFcn(hObject, eventdata, handles)
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end

@@ -1,11 +1,12 @@
 function turtlePlot(turtleCommands)
-
 d=[[1;0] zeros(2,length(turtleCommands/2))];
 x=[[0;0] zeros(2,length(turtleCommands/2))];
 stackD=[];
 stackX=[];
 
-if any(turtleCommands(2,:)==3) %Checks if the data is a fractal.
+%If the data is a fractal, the program will plot each line as the loop is
+%running, and collect the plots.
+if any(turtleCommands(2,:)==3)
     hold on
 end
 for i = 1:length(turtleCommands)
@@ -30,7 +31,6 @@ for i = 1:length(turtleCommands)
         stackX=stackX(:,1:end-1); %Pop X values from stack
         d(:,i+1)=[cos(-1/4*pi), -sin(-1/4*pi); sin(-1/4*pi), cos(-1/4*pi)]*d(:,i);
     end
-
 end
 if any(turtleCommands(2,:)==3) %Checks if the data is a fractal.
 	hold off

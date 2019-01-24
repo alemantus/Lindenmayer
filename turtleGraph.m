@@ -10,27 +10,22 @@ if any(coord(1,:)=='S')
             coord(:,i)=[(1/3)^iteration, 1];
         elseif coord(1,i)=='R'%the angle depends on the first letter
             coord(:,i)=[-2/3*pi, 2];
-
         elseif coord(1,i)=='L'
             coord(:,i)=[1/3*pi, 2];
         end
-
     end
 %Sierpinski
 elseif any(coord(1,:)=='A')
     for i=1:length(LindenmayerString)
         %Number of iterations specified in LindIter.m
         iteration=log((numel(coord)/2)+1/2)/(2*log(2));
-
         if coord(1,i)=='A' || coord(1,i)=='B'
             coord(:,i)=[(1/3)^iteration, 1];
         elseif coord(1,i)=='R'%the angle depends on the first letter
             coord(:,i)=[-1/3*pi, 2];
-
         elseif coord(1,i)=='L'
             coord(:,i)=[1/3*pi, 2];
         end
-
     end
 elseif any(coord(1,:)=='[')
     for i=1:length(LindenmayerString)
@@ -43,9 +38,7 @@ elseif any(coord(1,:)=='[')
         elseif coord(1,i)==']'%Pop
             coord(:,i)=[1/4*pi, 4];
         end
-
     end
-
 elseif any(coord(1,:)=='F')
     for i=1:length(LindenmayerString)
         %We found out that it's way easier to just do an exponential
