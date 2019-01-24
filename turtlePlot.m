@@ -5,7 +5,9 @@ x=[[0;0] zeros(2,length(turtleCommands/2))];
 stackD=[];
 stackX=[];
 
-hold on
+if any(turtleCommands(2,:)==3) %Checks if the data is a fractal.
+    hold on
+end
 for i = 1:length(turtleCommands)
     if turtleCommands(2,i) == 2 %Checks if current command is an angle
         d(:,i+1)=[cos(turtleCommands(1, i)), -sin(turtleCommands(1, i)); sin(turtleCommands(1, i)), cos(turtleCommands(1, i))]*d(:,i);
@@ -13,7 +15,9 @@ for i = 1:length(turtleCommands)
     elseif turtleCommands(2,i) == 1 %Checks if current command is a length
         x(:,i+1)=x(:,i)+turtleCommands(1, i)*d(:,i);
         d(:,i+1)=d(:,i); %Next direction will be the same
-        plot([x(1,i), x(1,i+1)], [x(2,i), x(2,i+1)], 'b'); %Plot the current line.
+        if any(turtleCommands(2,:)==3) %Checks if the data is a fractal.
+            plot([x(1,i), x(1,i+1)], [x(2,i), x(2,i+1)], 'b'); %Plot the current line.
+        end
     elseif turtleCommands(2,i) == 3
         stackD=[stackD d(:,i)]; %Push D values to stack
         stackX=[stackX x(:,i)]; %Push X values to stack
@@ -28,4 +32,8 @@ for i = 1:length(turtleCommands)
     end
 
 end
-hold off
+if any(turtleCommands(2,:)==3) %Checks if the data is a fractal.
+	hold off
+else
+    plot(x(1,:),x(2,:))
+end

@@ -19,7 +19,6 @@ elseif strcmp(System, "Sierpinski")
     end
 elseif strcmp(System, "Dragon curve")
     ourStr = 'FX';
-
     for i = 1:N
         old = {'X','Y'};
         new = {'XRYFR','LFXLY'};
@@ -27,7 +26,6 @@ elseif strcmp(System, "Dragon curve")
     end
     %The dragon doesn't require X and Y, so we'll exclude those.
     ourStr=ourStr(ourStr=='F' | ourStr=='R' | ourStr=='L');
-
     elseif strcmp(System, "Fractal tree")
     ourStr = '0';
     for i = 1:N
