@@ -1,70 +1,69 @@
-function [turtleCommands] = turtleGraph(LindenmayerString)
+function turtleCommands = turtleGraph3(LindenmayerString)
 
-%disp(LindenmayerString);
-coord = double(cell2mat(split(LindenmayerString,""))).';
-
+coord = [double(cell2mat(split(LindenmayerString,""))).'; zeros(1, length(LindenmayerString))];
 %Koch
-if any(coord=='S')
-    
-    %Number of iterations specified in LindIter.m
-    iteration=log((numel(coord)/2)+1/2)/(2*log(2));
-    
-    %length determination    
-    coord(coord=='S')=(1/3)^iteration;
+if any(coord(1,:)=='S')
+    for i=1:length(LindenmayerString)
+        %Number of iterations specified in LindIter.m
+        iteration=log((numel(coord)/2)+1/2)/(2*log(2));
 
-    %the angle depends on the first letter
-    
-    coord(coord=='R') =-2/3*pi;
-    coord(coord=='L') =1/3*pi;
+        %salmon = sort(data(data(:, end)==1, 1:2));
+        if coord(1,i)=='S'
+            coord(:,i)=[(1/3)^iteration, 1];
+        elseif coord(1,i)=='R'%the angle depends on the first letter
+            coord(:,i)=[-2/3*pi, 2];
 
+        elseif coord(1,i)=='L'
+            coord(:,i)=[1/3*pi, 2];
+        end
+
+    end
 %Sierpinski
-elseif any(coord=='A')
-    
-    %Number of iterations specified in LindIter.m
-    iteration = log(numel(coord)/2+1/2)/log(3);
-    
-    %length determination
-    coord(coord=='A'|coord=='B')=(1/2)^iteration;
-    
-    %the angle depends on the first letter
-    coord(coord=='R') =-1/3*pi;
-    coord(coord=='L') =1/3*pi;
-    
-    type = 1;
-    
-elseif any(coord=='F')
-    
-    %Number of iterations specified in LindIter.m
-    iteration = log(numel(coord)/2+1/2)/log(3);
-    
-    %length determination
-    coord(coord=='F')=(1/2)^iteration;
-    %coord(coord=='F')=[];
-    
-    %the angle depends on the first letter
-    coord(coord=='R') =-(1/2)*pi;
-    coord(coord=='L') =(1/2)*pi;
-    
-    %disp(coord);
-    
-    
-elseif any(coord=='[')
-    
+elseif any(coord(1,:)=='A')
+    for i=1:length(LindenmayerString)
+        %Number of iterations specified in LindIter.m
+        iteration=log((numel(coord)/2)+1/2)/(2*log(2));
+
+        %salmon = sort(data(data(:, end)==1, 1:2));
+        if coord(1,i)=='A' || coord(1,i)=='B'
+            coord(:,i)=[(1/3)^iteration, 1];
+        elseif coord(1,i)=='R'%the angle depends on the first letter
+            coord(:,i)=[-1/3*pi, 2];
+
+        elseif coord(1,i)=='L'
+            coord(:,i)=[1/3*pi, 2];
+        end
+
+    end
+elseif any(coord(1,:)=='[')
     %iteration = log(numel(coord)/2+1/2)/log(3);
-    
-    coord(coord=='1')=(1/2);
-    coord(coord=='0')=(1/4);
-    
-    coord(coord==']') =-1/4*pi;
-    coord(coord=='[') =1/4*pi;  
-    type = 2;
-<<<<<<< HEAD
-%     disp(coord);
-=======
-    %disp(coord);
->>>>>>> Gustav
+    for i=1:length(LindenmayerString)
+        for i=1:length(LindenmayerString)
+        %salmon = sort(data(data(:, end)==1, 1:2));
+        if coord(1,i)=='1'
+            coord(:,i)=[1/2, 1];
+        elseif coord(1,i)=='0'
+            coord(:,i)=[1/4, 1];
+        elseif coord(1,i)=='['%Push
+            coord(:,i)=[-1/4*pi, 3];
+        elseif coord(1,i)==']'%Pop
+            coord(:,i)=[1/4*pi, 4];
+        end
+
+    end
+elseif any(coord(1,:)=='F')
+    for i=1:length(LindenmayerString)
+        %salmon = sort(data(data(:, end)==1, 1:2));
+        if coord(1,i)=='F'
+            coord(:,i)=[1/2, 1];
+        elseif coord(1,i)=='R'%the angle depends on the first letter
+            coord(:,i)=[-1/2*pi, 2];
+
+        elseif coord(1,i)=='L'
+            coord(:,i)=[1/2*pi, 2];
+        end
+
+    end
+
 end
-
 turtleCommands = coord;
-
-
