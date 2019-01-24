@@ -33,7 +33,6 @@ elseif any(coord(1,:)=='A')
 
     end
 elseif any(coord(1,:)=='[')
-    %iteration = log(numel(coord)/2+1/2)/log(3);
     for i=1:length(LindenmayerString)
         if coord(1,i)=='1'
             coord(:,i)=[1/2, 1];
