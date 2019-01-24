@@ -36,9 +36,7 @@ elseif any(coord(1,:)=='A')
         
     end
 elseif any(coord(1,:)=='[')
-    
-    %iteration = log(numel(coord)/2+1/2)/log(3);
-    for i=1:length(LindenmayerString)
+        for i=1:length(LindenmayerString)
         %salmon = sort(data(data(:, end)==1, 1:2));
         if coord(1,i)=='1'
             coord(:,i)=[1/2, 1];
