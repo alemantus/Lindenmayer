@@ -29,7 +29,4 @@ for i = 1:length(turtleCommands)
     
 end
 hold off
-%A=plot(x(1,:), x(2,:));
-%B=plot(x(1,:), x(2,:));
-%plot(A,B)
-%line(x(1,:), x(2,:));
+
