@@ -1,10 +1,13 @@
-function plotData=turtlePlot2(turtleCommands)
+function turtlePlot2(turtleCommands)
 
 stackD=[];
 stackX=[];
 d=[[1;0] zeros(2,length(turtleCommands/2))];
 x=[[0;0] zeros(2,length(turtleCommands/2))];
+stackD=[];
+stackX=[];
 
+hold on
 for i = 1:length(turtleCommands)
     if turtleCommands(2,i) == 2 %Checks if current command is an angle
         d(:,i+1)=[cos(turtleCommands(1, i)), -sin(turtleCommands(1, i)); sin(turtleCommands(1, i)), cos(turtleCommands(1, i))]*d(:,i);
@@ -12,7 +15,7 @@ for i = 1:length(turtleCommands)
     elseif turtleCommands(2,i) == 1 %Checks if current command is a length
         x(:,i+1)=x(:,i)+turtleCommands(1, i)*d(:,i);
         d(:,i+1)=d(:,i); %Next direction will be the same
-        line(x(1,i), x(2,i));
+        plot([x(1,i), x(1,i+1)], [x(2,i), x(2,i+1)], 'b'); %Plot the current line.
     elseif turtleCommands(2,i) == 3
         stackD=[stackD d(:,i)]; %Push D values to stack
         stackX=[stackX x(:,i)]; %Push X values to stack
@@ -25,9 +28,6 @@ for i = 1:length(turtleCommands)
         stackX=stackX(:,1:end-1); %Pop X values from stack
         d(:,i+1)=[cos(-1/4*pi), -sin(-1/4*pi); sin(-1/4*pi), cos(-1/4*pi)]*d(:,i);
     end
-    
 
 end
-plotData = x;
-%line(x(1,:), x(2,:));
-plot(x(1,:), x(2,:));
+hold off
