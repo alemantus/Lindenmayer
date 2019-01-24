@@ -1,4 +1,4 @@
-function turtlePlot(turtleCommands)
+function fig = turtlePlot(turtleCommands)
 
 d=[[1;0] zeros(2,length(turtleCommands/2))];
 x=[[0;0] zeros(2,length(turtleCommands/2))];
@@ -16,7 +16,7 @@ for i = 1:length(turtleCommands)
         x(:,i+1)=x(:,i)+turtleCommands(1, i)*d(:,i);
         d(:,i+1)=d(:,i); %Next direction will be the same
         if any(turtleCommands(2,:)==3) %Checks if the data is a fractal.
-            plot([x(1,i), x(1,i+1)], [x(2,i), x(2,i+1)], 'b'); %Plot the current line.
+            fig=plot([x(1,i), x(1,i+1)], [x(2,i), x(2,i+1)], 'b'); %Plot the current line.
         end
     elseif turtleCommands(2,i) == 3
         stackD=[stackD d(:,i)]; %Push D values to stack
@@ -35,5 +35,5 @@ end
 if any(turtleCommands(2,:)==3) %Checks if the data is a fractal.
 	hold off
 else
-    plot(x(1,:),x(2,:))
+    fig=plot(x(1,:),x(2,:));
 end
