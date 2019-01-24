@@ -48,15 +48,17 @@ elseif any(coord(1,:)=='[')
 
 elseif any(coord(1,:)=='F')
     for i=1:length(LindenmayerString)
+        %We found out that it's way easier to just do an exponential
+        %regression and then round to nearest integer, if you want to find
+        %the number of iterations:s
+        iteration=round(1.388461209*log(0.3968302592*length(coord)));
         if coord(1,i)=='F'
-            coord(:,i)=[1/2, 1];
+            coord(:,i)=[1/2^iteration, 1];
         elseif coord(1,i)=='R'%the angle depends on the first letter
             coord(:,i)=[-1/2*pi, 2];
         elseif coord(1,i)=='L'
             coord(:,i)=[1/2*pi, 2];
         end
-
     end
-
 end
 turtleCommands = coord;
